@@ -1,6 +1,6 @@
 # C# OOP Interface and Inheritance Project
 
-This project implements advanced Object Oriented Programming syntax involving interfaces, inheritance, and polymorphism.
+This project is for learning advanced Object Oriented Programming concepts and syntax involving interfaces, inheritance, and polymorphism.
 
 > [!NOTE]
 > Currently there is no code in this repo. I need to first organize all the concepts and syntax before I build a simple console application.
@@ -38,49 +38,46 @@ dotnet run
 
 <span aria-hidden="true"><br></span>
 
-## Concepts and keywords and terminology to incorporate into this project
+## Concepts and keywords to learn and add to this project
 
 - Class inheritance: base class and derived class
-  - Static and instance constructors
-  - Properties and methods
-  - the `new` keyword
+  - Static constructors
   - the `override` keyword
 - Interfaces
   - the `interface` keyword
   - interface implementation
-  - Properties and methods
 - Polymorphism
   - Method overriding
-  - Virtual and abstract methods
-  - Base class references
-  - Interface-based polymorphism
+  - `virtual` and `abstract` methods
+  - Base class references (`.base`, `base()`)
   - Inheritance-based polymorphism
-  - decouple
-  - Tight coupling
-  - Loose coupling
-  - class dependencies
-  - dependency injection
-  - design patterns
+  - Interface-based polymorphism
+  - Decouple
+    - Tight coupling
+    - Loose coupling
+  - Class dependencies?
+  - Dependency injection?
+  - Design patterns?
 - Public members
-- Protected members
 - Private members
-- the `abstract` keyword
-- the `virtual` keyword
-- the `sealed` keyword
-- the `new` keyword
-- the `override` keyword
-- the `base` keyword
-- instance property accessor
+- Protected members
+- The `abstract` keyword
+- The `virtual` keyword
+- The `sealed` keyword
+- The `new` keyword
+- The `override` keyword
+- The `base` keyword
+- Instance property accessor?
 - Method overloading
-  - compile-time polymorphism
+  - _Compile-time polymorphism_
 - Method overriding
-  - runtime polymorphism
+  - _Runtime polymorphism_
 - Casting
-  - the `is` and `as` keywords
+  - The `is` and `as` keywords
 
 <span aria-hidden="true"><br></span>
 
-## Concepts and keywords and terminology definitions
+## In-depth Ccncepts and keywords definitions
 
 ### Inheritance: Base Class Notes
 
@@ -100,17 +97,19 @@ dotnet run
 
 ### Inheritance: miscellaneous notes
 
-- Static and instance constructors
-- Properties and methods
-- the `new` keyword
-- the `override` keyword
-- `virtual`, `override`, and `abstract`
-- base class: `abstract`, `virtual`, and `sealed`
-- `abstract` or `virtual` --> `override`
-- `public`, `protected`, `internal`, and `private`
-- method overriding (using `override`) and method hiding (using `new`)
+- Static constructors:
+- The `new` keyword in child class method signatures:
+- The `abstract` keyword in parent classes:
+- The `virtual` keyword in parent classes:
+- The `override` keyword in child class method signatures:
+  - `abstract` or `virtual` --> `override`
+- Base/parent class: `abstract`, `virtual`, and `sealed`
+  - The `sealed` keyword:
+- `public`, `protected`, `internal`, and `private` keywords
+- Method overriding (using `override`) and method hiding (using `new`)
 - The `base` keyword
-- What is this syntax: `base(arg1, arg2)`
+  - `base(arg1, arg2)`:
+  - `base.MethodName()`:
 
 <span aria-hidden="true"><br></span>
 
@@ -119,7 +118,7 @@ dotnet run
 - _Interface implementation_ allows a class to implement members defined in an interface
 - A class can define its own behavior and implement the members defined in an interface.
 - A class can inherit from multiple interfaces
-- You should use interface implementation when a class can perform a specific set of actions.
+- You should use interface implementation when a class can perform a specific set of actions?
 - Create smaller, more specific interfaces rather than one large interface
 - An interface doesn't hold any data itself
 - Interfaces define methods but they don't provide the implementation for the methods
@@ -131,8 +130,8 @@ dotnet run
 ### Implement interface properties
 
 - Start the process by designing an interface with properties.
+  - Use the `interface` keyword to create an interface
 - Then, you develop a class that implements these properties
-- Use the `interface` keyword to create an interface
 - Define properties in the interface without a body
 - When you implement these properties in a class, you'll write the actual code for getting (reading) and setting (writing) the values
 
@@ -140,30 +139,32 @@ dotnet run
 
 ### Polymorphism: miscellaneous notes
 
-- Polymorphism: a base class reference points to a derived class object?
-- Polymorphism is based on Method overriding, Virtual and abstract methods, Base class references, and Interface-based polymorphism
+<!-- - Polymorphism: a base class reference points to a derived class object? -->
+
+- Polymorphism is based on Method overriding, `virtual` and `abstract` methods, base class references, and interface-based polymorphism
 - Polymorphism decouples the code that uses objects from the code that defines the objects
 - Polymorphism enables objects of different types to be treated as objects of a common base type, providing flexibility and reusability in code.
-- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_. (?)
 - _Polymorphism_: is primarily achieved through method overriding
 - The classes and data that you're working with will determine whether inheritance-based or interface-based polymorphism is more appropriate
 
 ### Inheritance-based polymorphism
 
 - Inheritance-based polymorphism is a common way to implement polymorphism in C#.
-- When an app instantiates an object as a base class type and then assigns the object a derived class instance, it's prepared to implement _polymorphism_.
+- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_. (?)
+- When an app instantiates an object as a base class type and then assigns the object to a derived class instance, it's prepared to implement _polymorphism_.
 - _Inheritance-based polymorphism_: Class inheritance in C# enables a derived class to inherit members from a base class. Members of the base class can be overridden in the derived class to provide specific implementations.
-- _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_.
-- **Inheritance-Based Polymorphism**: Using this approach can lead to _tight coupling_ because derived classes are directly dependent on the base class. Changes in the base class can affect all derived classes.
-- However, there are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
+- **Inheritance-Based Polymorphism**: Using this approach can lead to _tight coupling_ because derived classes are directly dependent on the base class.
+  - Changes in the base class can affect all derived classes.
 - **Inheritance-based polymorphism** is appropriate in scenarios where you need to establish a clear hierarchical relationship between classes
 - When you need to treat objects of different classes uniformly, inheritance-based polymorphism is ideal
+- _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_.
+- However, there are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
 - By using a base class reference, you can invoke overridden methods in derived classes, enabling polymorphic behavior
 
 ### Interface-based polymorphism
 
 - Using interfaces for polymorphism generally promotes loose coupling
-- _Interface-based polymorphism_: An interface in C# defines a contract that classes can implement. When a class implements an interface, the class receives a set of properties and methods that it's required to implement. This requirement allows for polymorphic behavior, where an interface reference can direct objects of different classes to implement the set of properties and methods. Interface-based polymorphism is another common way to implement polymorphism in C#.
+- _Interface-based polymorphism_: When a class implements an interface, the class receives a set of properties and methods that it's required to implement. This requirement allows for polymorphic behavior, where an interface reference can direct objects of different classes to implement the set of properties and methods.
 - **Interface-Based Polymorphism**: This approach promotes _loose coupling_ by allowing classes to interact through interfaces rather than concrete implementations. This decouples the classes, making the system more flexible and easier to maintain.
 - Interface-based polymorphism is useful in scenarios where you want to achieve loose coupling
 - Interface-based polymorphism helps reduce dependencies between classes - allows you to change the implementation without affecting the rest of the system
@@ -173,36 +174,36 @@ dotnet run
 
 ### Polymorphism: additional terms:
 
-- Method overriding
-- Virtual and abstract methods
-- Base class references
-- decouple
-- Tight coupling
-- Loose coupling
-- class dependencies
-- dependency injection
-- design patterns
+- Method overriding:
+- Virtual and abstract methods:
+- Base class references:
+- Decouple:
+- Tight coupling:
+- Loose coupling:
+- Class dependencies:
+- Dependency injection:
+- Design patterns:
 
 <span aria-hidden="true"><br></span>
 
 ## Other keywords + miscellaneous
 
-- Public members
-- Protected members
-- Private members
-- the `abstract` keyword
-- the `virtual` keyword
-- the `sealed` keyword
-- the `new` keyword
-- the `override` keyword
-- the `base` keyword
-- instance property accessor
-- Method overloading
-  - compile-time polymorphism
-- Method overriding
-  - runtime polymorphism
+- Public members:
+- Protected members:
+- Private members:
+- The `abstract` keyword:
+- The `virtual` keyword:
+- The `sealed` keyword:
+- The `new` keyword:
+- The `override` keyword:
+- The `base` keyword:
+- Instance property accessor:
+- Method overloading:
+  - Compile-time polymorphism
+- Method overriding:
+  - Runtime polymorphism
 - Casting
-  - the `is` and `as` keywords
+  - The `is` and `as` keywords
 - Use File-Scoped Namespaces (`namespace Name;`)
 - The Entry Point (`Program.cs`): Use Top-Level Statements (No namespace, no class, no Main) so `using NamespaceName`
 - `IComparable`: Used for comparing objects.
