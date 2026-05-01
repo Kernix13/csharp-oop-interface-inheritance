@@ -100,7 +100,7 @@ Before you can override the members in a derived class, you must declare the mem
 - Derived classes must provide implementations for **_ALL_** abstract members of the abstract class. Derived classes must override these methods and provide the implementation.
 - Abstract properties: Similar to abstract methods, abstract properties are declared without implementation and must be overridden in derived classes.
 
-#### Defining an abstract base class:
+Defining an `abstract` base class:
 
 - When you define a base class as abstract, you indicate that the class is incomplete and must be implemented by derived classes
 - Abstract classes can contain abstract properties and methods that must be implemented by derived classes
@@ -120,6 +120,24 @@ The following rules describe how the `virtual` keyword affects inheritance:
 
 - Virtual methods: A virtual method has an implementation in the base class, but it can be overridden in derived classes.
 - Virtual properties: Similar to virtual methods, virtual properties have an implementation in the base class and can be overridden in derived classes.
+
+#### `sealed` keyword:
+
+The `sealed` keyword in C# is used to prevent a class or class member from being inherited or overridden. When a class is marked as `sealed`, it can't be used as a base class for other classes. When a method is marked as sealed, it can't be overridden in derived classes.
+
+The following rules describe how the sealed keyword affects inheritance:
+
+- Sealed classes: A sealed class can't be used as a base class for other classes. It prevents inheritance from the sealed class.
+- Sealed methods: A sealed method can't be overridden in derived classes. It prevents further modification of the method in derived classes.
+- Sealed properties: Similar to sealed methods, sealed properties can't be overridden in derived classes.
+
+Sealed classes and methods are useful when you want to prevent further extension or modification of a class or method. They provide a way to restrict inheritance and ensure that certain members remain unchanged.
+
+Avoid using sealed classes and methods: Sealed classes and methods can't be inherited or overridden, which limits the ability to use polymorphism. If you seal a class or method, you prevent further extension and customization. For example:
+
+```cs
+public sealed class BankAccount { } // This class can't be inherited
+```
 
 #### `override` keyword:
 
@@ -186,7 +204,14 @@ Calling the base class constructor from the derived class constructor is importa
 
 #### `public`, `protected`, `internal`, and `private` keywords:
 
--
+- Public members are accessible from any code that has access to the class. Derived classes inherit public members and they're accessible from outside the class hierarchy
+- Protected members are accessible within the class in which they're declared and within derived classes. They aren't accessible from outside the class hierarchy
+  - If you try to access protected members from outside the class hierarchy, a compile-time error is generated
+- Internal members are accessible within the same assembly. They aren't accessible from outside the assembly, even if the class is inherited.
+  - If you try to access internal members from outside the assembly, a compile-time error is generated
+- Private members are accessible only within the class in which they're declared. Derived classes don't inherit private members, so they're not directly accessible in the derived class
+
+> MAKE SURE I HAVE CODE EXAMPLES FOR `protected`, `internal`, AND `private`
 
 <span aria-hidden="true"><br></span>
 
