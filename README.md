@@ -295,6 +295,8 @@ When implementing casting, consider the following guidelines:
 2. Base Class -> The Blueprint. Defines how things are done by default (shared code).
 3. Derived Class -> The Specialist. Handles the unique details.
 
+NOTE: If you want to pass the values in when you create the instance, you should put the main constructor in the Base Class to handle the shared fields
+
 <span aria-hidden="true"><br></span>
 
 ### Polymorphism: miscellaneous notes
@@ -493,6 +495,30 @@ Console.WriteLine($"Area of the square = {square.GetArea()}");]
 ```sh
 # This is a quick way to create files
 echo "namespace NamespaceName;" > FileName1.cs
+```
+
+Interfaces I am working on:
+
+```cs
+namespace InventorySystem;
+// The "Transaction" attributes (OrderQty, Date).
+public interface IPurchaseOrder
+{
+    string VendorID  { get; }
+    string ItemID { get; }
+    int OrderQuantity { get; set; }
+    double ItemCost { get; set; }
+    DateTime OrderDate { get; }
+}
+
+// This needs work
+namespace InventorySystem;
+// The "Source" attributes (VendorID, Lead Time).
+public interface ISupplyVendor
+{
+    string VendorID  { get; set; }
+    string AvgLeadTime { get; set; }
+}
 ```
 
 <!-- The local repo folder name is: InventorySystem -->
