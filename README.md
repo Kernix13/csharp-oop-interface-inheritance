@@ -121,14 +121,15 @@ The following rules describe how the `virtual` keyword affects inheritance:
 - Virtual methods: A virtual method has an implementation in the base class, but it can be overridden in derived classes.
 - Virtual properties: Similar to virtual methods, virtual properties have an implementation in the base class and can be overridden in derived classes.
 
-> **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class.
-
 #### `override` keyword:
+
+In C#, you can use the `override` keyword to extend or modify the behavior of the base class in the derived class. The `override` keyword enables you to override properties and methods that are inherited from the base class, and provide custom implementations in the derived class.
 
 - The `override` keyword in child class method signatures:
   - `abstract` or `virtual` --> `override`
   - After you declare the members in the base class as either abstract or virtual, you can override the members in the derived class using the `override`
   - The override keyword indicates that the member in the derived class overrides the member in the base class.
+- Use the `override` keyword to extend or modify the behavior of the base class members
 - Method overriding (using `override`) and method hiding (using `new`)
 - The `base` keyword
   - `base(arg1, arg2)`:
@@ -137,13 +138,44 @@ The following rules describe how the `virtual` keyword affects inheritance:
 To override a property or method in a derived class, you must follow these steps:
 
 - Declare the members in the base class as either `abstract` or `virtual`.
-  - `abstract` or `virtual` --> `override`
 - Override the members in the derived class.
 - Optionally, use the `base` keyword to access the base class implementation from the overridden member in the derived class.
 
-#### `virtual` keyword:
+#### `base` keyword:
 
--
+- Use the `base` keyword to access base class members from a derived class.
+- Use the `base` keyword _to call_ base class constructors from derived class constructors.
+- Use the `base` keyword to access base class fields, properties, and methods from overridden methods in a derived class.
+
+A derived class that replaces or overrides a base class method or property can still access the method or property on the base class by using the `base` keyword. This enables you to call base class constructors, methods, and properties from overridden members of a derived class.
+
+By using the `base` keyword, you can ensure that the derived class properly reuses and extends the functionality provided by the base class.
+
+The `base` keyword is used to accomplish the following tasks:
+
+- To call a base class method from an overridden method of the derived class.
+- To implement a base-class constructor from within the constructor of the derived class.
+
+The base keyword has the following restrictions:
+
+- The `base` keyword can only be used in a constructor, an instance method, or an instance property accessor.
+- The `base` keyword can't be used in a static method. Attempting to use the `base` keyword in a static method will generate an error.
+- to access members of its parent (base) class
+
+When you implement the `base` keyword in a derived class, your code uses the base class specified in the class declaration
+
+Accessing the properties and methods of a base class from a derived class is a common requirement when implementing inheritance. The following code demonstrates the syntax for implementing the `base` keyword:
+
+```cs
+// The MemberName can be a property, method, or field of the base class
+base.MemberName
+```
+
+Class constructors in the base class can be accessed from constructors of the derived class by using the base keyword.
+
+Calling the base class constructor from the derived class constructor is important. For example, when the base class constructor initializes common properties that are used by the derived class. By calling the base class constructor from the derived class constructor, you ensure that the common properties are initialized before the derived class constructor executes.
+
+> **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class.
 
 #### `new` keyword:
 
