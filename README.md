@@ -118,6 +118,7 @@ dotnet run
 
 - _Interface implementation_ allows a class to implement members defined in an interface
 - A class can define its own behavior and implement the members defined in an interface.
+- A class can inherit from multiple interfaces
 - You should use interface implementation when a class can perform a specific set of actions.
 - Create smaller, more specific interfaces rather than one large interface
 - An interface doesn't hold any data itself
@@ -204,6 +205,10 @@ dotnet run
   - the `is` and `as` keywords
 - Use File-Scoped Namespaces (`namespace Name;`)
 - The Entry Point (`Program.cs`): Use Top-Level Statements (No namespace, no class, no Main) so `using NamespaceName`
+- `IComparable`: Used for comparing objects.
+- **`IEnumerable`**: Used for iterating over collections.
+- `IDisposable`: Used for releasing unmanaged resources.
+- `IEquatable`: Used for defining equality comparisons.
 
 <span aria-hidden="true"><br></span>
 
