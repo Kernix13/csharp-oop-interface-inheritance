@@ -108,7 +108,7 @@ Defining an `abstract` base class:
 - Abstract base classes can't be instantiated directly, so they're used as a template for derived classes to implement the abstract members
   - You must create instances of the derived classes that implement the abstract members
   - The derived class must provide implementations for the abstract members defined in the base class
-  - **_Members that aren't abstract can be overridden or hidden in the derived class_**
+  - Members that **_aren't `abstract`_** can be overridden (`override`) or hidden (`new`) in the derived class
 
 #### `virtual` keyword:
 
@@ -127,7 +127,7 @@ The following rules describe how the `virtual` keyword affects inheritance:
 
 The `sealed` keyword in C# is used to prevent a class or class member from being inherited or overridden. When a class is marked as `sealed`, it can't be used as a base class for other classes. When a method is marked as sealed, it can't be overridden in derived classes.
 
-The following rules describe how the sealed keyword affects inheritance:
+The following rules describe how the `sealed` keyword affects inheritance:
 
 - Sealed classes: A sealed class can't be used as a base class for other classes. It prevents inheritance from the sealed class.
 - Sealed methods: A sealed method can't be overridden in derived classes. It prevents further modification of the method in derived classes.
@@ -146,28 +146,29 @@ public sealed class BankAccount { } // This class can't be inherited
 In C#, you can use the `override` keyword to extend or modify the behavior of the base class in the derived class. The `override` keyword enables you to override properties and methods that are inherited from the base class, and provide custom implementations in the derived class.
 
 - The `override` keyword in child class method signatures:
-  - `abstract` or `virtual` --> `override`
-  - After you declare the members in the base class as either abstract or virtual, you can override the members in the derived class using the `override`
-  - The override keyword indicates that the member in the derived class overrides the member in the base class.
+  - `abstract` or `virtual` in base --> `override` in child
+  - After you declare the members in the base class as either `abstract` or `virtual`, you can override the members in the derived class using the `override` keyword
+  - The `override` keyword indicates that the member in the derived class overrides the member in the base class.
 - Use the `override` keyword to extend or modify the behavior of the base class members
 - Method overriding (using `override`) and method hiding (using `new`)
 - The `base` keyword
-  - `base(arg1, arg2)`:
-  - `base.MethodName()`:
+  - `base(arg1, arg2)`
+  - `base.MethodName()`
+  - `base.MemberName`
 
 To override a property or method in a derived class, you must follow these steps:
 
 - Declare the members in the base class as either `abstract` or `virtual`.
-- Override the members in the derived class.
+- Override the members in the derived class using the `override` keyword.
 - Optionally, use the `base` keyword to access the base class implementation from the overridden member in the derived class.
 
 #### `base` keyword:
 
+A derived class that replaces or overrides a base class method or property can still access the method or property on the base class by using the `base` keyword. This enables you to call base class constructors, methods, and properties from overridden members of a derived class.
+
 - Use the `base` keyword to access base class members from a derived class.
 - Use the `base` keyword _to call_ base class constructors from derived class constructors.
 - Use the `base` keyword to access base class fields, properties, and methods from overridden methods in a derived class.
-
-A derived class that replaces or overrides a base class method or property can still access the method or property on the base class by using the `base` keyword. This enables you to call base class constructors, methods, and properties from overridden members of a derived class.
 
 By using the `base` keyword, you can ensure that the derived class properly reuses and extends the functionality provided by the base class.
 
@@ -180,46 +181,46 @@ The base keyword has the following restrictions:
 
 - The `base` keyword can only be used in a constructor, an instance method, or an instance property accessor.
 - The `base` keyword can't be used in a static method. Attempting to use the `base` keyword in a static method will generate an error.
-- to access members of its parent (base) class
 
 When you implement the `base` keyword in a derived class, your code uses the base class specified in the class declaration
 
 Accessing the properties and methods of a base class from a derived class is a common requirement when implementing inheritance. The following code demonstrates the syntax for implementing the `base` keyword:
 
 ```cs
-// The MemberName can be a property, method, or field of the base class
+// The MemberName can be a property or field of the base class
 base.MemberName
+base.MethodName()
 ```
 
-Class constructors in the base class can be accessed from constructors of the derived class by using the base keyword.
+Class constructors in the base class can be accessed from constructors of the derived class by using the `base` keyword.
 
 Calling the base class constructor from the derived class constructor is important. For example, when the base class constructor initializes common properties that are used by the derived class. By calling the base class constructor from the derived class constructor, you ensure that the common properties are initialized before the derived class constructor executes.
 
-> **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class.
+> **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class. (?)
 
 #### `new` keyword:
 
-- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. Not often used.
-- hiding base class members using `new` in child method signatures
+- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. (Not often used)
+- I think you would use it when you same members with the same name in both classes
+- Hiding base class members using `new` in child method signatures
   - `public new void SameNameAsParentMethod()`
   - Similar to method overriding - DON'T DO THAT - use `override`!
 
 #### `public`, `protected`, `internal`, and `private` keywords:
 
-- Public members are accessible from any code that has access to the class. Derived classes inherit public members and they're accessible from outside the class hierarchy
-- Protected members are accessible within the class in which they're declared and within derived classes. They aren't accessible from outside the class hierarchy
+- _Public members_ are accessible from any code that has access to the class.
+  - Derived classes inherit public members and they're accessible from outside the class hierarchy
+- _Protected members_ are accessible within the class in which they're declared and within derived classes. They aren't accessible from outside the class hierarchy
   - If you try to access protected members from outside the class hierarchy, a compile-time error is generated
-- Internal members are accessible within the same assembly. They aren't accessible from outside the assembly, even if the class is inherited.
+- _Internal members_ are accessible within the same assembly. They aren't accessible from outside the assembly, even if the class is inherited. (?)
   - If you try to access internal members from outside the assembly, a compile-time error is generated
-- Private members are accessible only within the class in which they're declared. Derived classes don't inherit private members, so they're not directly accessible in the derived class
+- _Private members_ are accessible only within the class in which they're declared. Derived classes don't inherit private members, so they're not directly accessible in the derived class
 
 #### Casting
 
 Cast an object of a base class to a derived class
 
 Casting in C# is the process of converting an object of one type to another type. Casting is often used when implementing polymorphism using inheritance hierarchies, where you have a base class and one or more derived classes.
-
-- Casting - The `is` and `as` keywords
 
 There are two main types of casting:
 
@@ -264,8 +265,6 @@ When implementing casting, consider the following guidelines:
 - do upcasting not down casting?!?
 
 > Understanding these casting techniques is essential for working with polymorphism and inheritance in C#.
-
-> MAKE SURE I HAVE CODE EXAMPLES FOR `protected`, `internal`, AND `private`
 
 <span aria-hidden="true"><br></span>
 
