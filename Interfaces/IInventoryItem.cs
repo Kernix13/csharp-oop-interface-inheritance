@@ -2,10 +2,12 @@ namespace InventorySystem;
 
 public interface IInventoryItem
 {
-    string ItemNumber { get; set; }
-    int QuantityOnHand { get; set; }
-    int QuantityOnOrder { get; }
-    int QuantityOnBackOrder { get; set; }
+    public string ItemNumber { get; set; }
+    public int QuantityOnHand { get; set; }
+    public int QuantityOnOrder { get; }
+    public int QuantityOnBackOrder { get; set; }
 
     // void UpdateStock(int amount);
+
+    string DisplayItemInfo();
 }

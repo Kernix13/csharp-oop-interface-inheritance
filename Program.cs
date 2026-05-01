@@ -1,3 +1,5 @@
 ﻿using InventorySystem;
+using System.Globalization;
 
-Console.WriteLine("InventorySystem: C# OOP interface, inheritance, & polymorphism.");
+Product product1 = new DatedProduct();
+Console.WriteLine(product1.DisplayItemInfo());

@@ -1,12 +1,17 @@
+
+// public class Product : IInventoryItem
+
 namespace InventorySystem;
 
-// public abstract class Product : IInventoryItem
-public abstract class Product
+public class Product
 {
-    // fields and constructors here
-    // use virtual so DatedProduct can change
-    string? ItemNumber;
-    int QuantityOnHand;
-    int QuantityOnOrder;
-    int QuantityOnBackOrder;
+    public string ItemNumber = "ABC123";
+    public int QuantityOnHand = 97;
+    public int QuantityOnOrder = 250;
+    public int QuantityOnBackOrder = 0;
+
+    public virtual string DisplayItemInfo()
+    {
+        return $"Item Number: {ItemNumber}, Quantity On Hand: {QuantityOnHand}, Quantity On Order: {QuantityOnOrder}, Quantity On Back Order: {QuantityOnBackOrder}";
+    }
 }
