@@ -2,6 +2,8 @@
 
 This project is for learning advanced Object Oriented Programming concepts and syntax involving interfaces, inheritance, and polymorphism.
 
+This README has notes on the concepts and keywords used is the `.cs` files.
+
 > [!NOTE]
 > Currently there is no code in this repo. I need to first organize all the concepts and syntax before I build a simple console application.
 
@@ -249,6 +251,8 @@ Calling the base class constructor from the derived class constructor is importa
 - _Polymorphism_: is primarily achieved through method overriding
 - The classes and data that you're working with will determine whether inheritance-based or interface-based polymorphism is more appropriate
 
+> While polymorphism can be implemented in both tightly and loosely coupled systems, using interfaces for polymorphism generally promotes loose coupling
+
 ### Inheritance-based polymorphism
 
 - Inheritance-based polymorphism is a common way to implement polymorphism in C#.
@@ -276,15 +280,31 @@ Calling the base class constructor from the derived class constructor is importa
 
 ### Polymorphism: additional terms:
 
-- Method overriding:
 - Virtual and abstract methods: SEE ABOVE
-- Base class references:
-- Decouple:
-- Tight coupling:
-- Loose coupling:
-- Class dependencies:
-- Dependency injection:
-- Design patterns:
+- Base class references: Polymorphism allows a base class reference to point to objects of derived classes. This inheritance mechanism enables the invocation of overridden methods in derived classes through the base class reference.
+- Decoupling & class dependencies: Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code. Decoupling is especially important in large systems where changes in one part of the code should not affect other parts
+  - Tight coupling (Inheritance-Based Polymorphism): Tight coupling occurs when classes or components in a system are highly dependent on each other. This means that changes in one class can directly affect other classes, making the system less flexible and harder to maintain. Tight coupling can lead to difficulties in testing, extending, and modifying the code.
+  - Loose coupling (Interface-Based Polymorphism): refers to a design where classes or components have minimal dependencies on each other. This design principle enhances flexibility, maintainability, and testability by reducing the interdependencies between components.
+- Design patterns???
+
+#### Method overloading versus method overriding:
+
+Method overloading and method overriding are two common techniques for implementing method calls that produce different behaviors. Here's a comparison of the two techniques:
+
+- Method overloading: Method overloading allows you to define multiple methods with the same name but different parameters in the same class. The method to be called is determined at compile time based on the method signature. Method overloading is often referred to as _compile-time polymorphism_.
+- Method overriding: Method overriding allows a derived class to provide a specific implementation of a method that is already defined in its base class. The method to be called is determined at runtime based on the actual type of the object. Method overriding is an example of _runtime polymorphism_.
+
+#### Dependency injection:
+
+Dependency Injection: allows a class to depend on an abstract interface rather than a specific implementation... the constructor (`public Library(IBorrowable item)`) is where the dependency is provided. The constructor allows the Library class to work with any compatible implementation, such as BorrowableBook or BorrowableDVD, without needing to change its internal structure
+
+By using Dependency Injection, the Library class can work with any implementation of IBorrowable. This approach provides:
+
+- Flexibility: You can easily switch or add new implementations without modifying the Library class.
+- Testability: You can "plug in" mock implementations for testing purposes.
+- Maintainability: The Library class doesn’t need to know the details of the specific implementation, making it easier to extend and maintain.
+
+Dependency injection ensures that dependencies are provided in a modular and testable manner
 
 <span aria-hidden="true"><br></span>
 
