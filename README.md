@@ -213,6 +213,57 @@ Calling the base class constructor from the derived class constructor is importa
   - If you try to access internal members from outside the assembly, a compile-time error is generated
 - Private members are accessible only within the class in which they're declared. Derived classes don't inherit private members, so they're not directly accessible in the derived class
 
+#### Casting
+
+Cast an object of a base class to a derived class
+
+Casting in C# is the process of converting an object of one type to another type. Casting is often used when implementing polymorphism using inheritance hierarchies, where you have a base class and one or more derived classes.
+
+- Casting - The `is` and `as` keywords
+
+There are two main types of casting:
+
+- Implicit Casting: This occurs automatically when converting a derived class to a base class. It is safe because every instance of a derived class is also an instance of the base class: `BankAccount account = new CheckingAccount();`
+- Explicit Casting: This requires a cast operator and is used when converting a base class to a derived class. It's not always safe because not every instance of a base class is an instance of the derived class:
+  - `CheckingAccount checkingAccount = (CheckingAccount)account;`
+
+Cast objects by using the `is` and `as` keywords
+
+In C#, you can cast objects using the `is` and `as` keywords. These keywords provide a safe way to check the type of an object before casting it to another type. Here are some common ways to cast objects in C#:
+
+- Using the `is` keyword with pattern matching:
+  - This syntax checks if `account` is of type `CheckingAccount`.
+  - If the check is successful, it casts `account` to `CheckingAccount` and assigns it to the variable `checkingAccount`.
+  - This approach is concise and safe, as it combines the type check and cast in one step.
+
+```cs
+if (account is CheckingAccount) {
+    CheckingAccount checkingAccount = (CheckingAccount)account;
+    // Use checkingAccount as a CheckingAccount
+}
+```
+
+- Using the `as` keyword:
+  - This syntax attempts to cast `account` to `CheckingAccount` and assigns the result to `checkingAccount`.
+  - If the cast is successful, `checkingAccount` contains the cast object; otherwise, it is `null`.
+  - This approach is useful when you want to check the cast result before using the cast object. For example, when you want to avoid exceptions and handle the failure case gracefully.
+
+```cs
+CheckingAccount checkingAccount = account as CheckingAccount;
+
+if (checkingAccount != null) {
+    // Use checkingAccount as a CheckingAccount
+}
+```
+
+When implementing casting, consider the following guidelines:
+
+- Using pattern matching with `is`: Combines type check and cast in one step.
+- Using the `is` keyword with explicit cast: Separates type check and cast into two steps, providing more control over the casting process.
+- Using the `as` keyword: Attempts cast and handles failure gracefully by returning null.
+
+> Understanding these casting techniques is essential for working with polymorphism and inheritance in C#.
+
 > MAKE SURE I HAVE CODE EXAMPLES FOR `protected`, `internal`, AND `private`
 
 <span aria-hidden="true"><br></span>
@@ -310,22 +361,8 @@ Dependency injection ensures that dependencies are provided in a modular and tes
 
 ## Other keywords + miscellaneous
 
-- Public members:
-- Protected members:
-- Private members:
-- The `abstract` keyword: SEE ABOVE
-- The `virtual` keyword:
-- The `sealed` keyword:
-- The `new` keyword:
-- The `override` keyword:
-- The `base` keyword:
-- Instance property accessor:
-- Method overloading:
-  - Compile-time polymorphism
-- Method overriding:
-  - Runtime polymorphism
-- Casting
-  - The `is` and `as` keywords
+> Interject code blocks through out the page
+
 - Use File-Scoped Namespaces (`namespace Name;`)
 - The Entry Point (`Program.cs`): Use Top-Level Statements (No namespace, no class, no Main) so `using NamespaceName`
 - `IComparable`: Used for comparing objects.
