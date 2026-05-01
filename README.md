@@ -270,6 +270,8 @@ When implementing casting, consider the following guidelines:
 
 ### Interface notes
 
+> Interfaces cannot contain fields; they can only contain properties!
+
 - _Interface implementation_ allows a class to implement members defined in an interface
 - A class can define its own behavior and implement the members defined in an interface.
 - A class can inherit from multiple interfaces
@@ -282,13 +284,19 @@ When implementing casting, consider the following guidelines:
 - Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code
 - the `interface` keyword
 
-### Implement interface properties
+#### Implement interface properties
 
 - Start the process by designing an interface with properties.
   - Use the `interface` keyword to create an interface
 - Then, you develop a class that implements these properties
 - Define properties in the interface without a body
 - When you implement these properties in a class, you'll write the actual code for getting (reading) and setting (writing) the values
+
+> The specific pattern: **Interface → Base Class → Derived Class** - that is a professional "Gold Standard" in C# development.
+
+1. Interface -> The Contract. Defines what must be done.
+2. Base Class -> The Blueprint. Defines how things are done by default (shared code).
+3. Derived Class -> The Specialist. Handles the unique details.
 
 <span aria-hidden="true"><br></span>
 

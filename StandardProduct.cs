@@ -2,5 +2,9 @@ namespace InventorySystem;
 
 public class StandardProduct : Product
 {
-    // fields and constructors here
+
+    public override string DisplayItemInfo()
+    {
+        return $"[Standard] Item: {ItemNumber}, Stock: {QuantityOnHand}";
+    }
 }

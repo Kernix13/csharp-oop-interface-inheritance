@@ -3,12 +3,13 @@
 
 namespace InventorySystem;
 
-public class Product
+public class Product : IInventoryItem
 {
-    public string ItemNumber = "ABC123";
-    public int QuantityOnHand = 97;
-    public int QuantityOnOrder = 250;
-    public int QuantityOnBackOrder = 0;
+    // You must implement everything the interface asked for
+    public string ItemNumber { get; set; } = "ABC123";
+    public int QuantityOnHand { get; set; } = 97;
+    public int QuantityOnOrder { get; set; } = 250;
+    public int QuantityOnBackOrder { get; set; } = 0;
 
     public virtual string DisplayItemInfo()
     {
