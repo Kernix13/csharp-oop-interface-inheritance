@@ -92,7 +92,7 @@ Before you can override the members in a derived class, you must declare the mem
   - Abstract: The `abstract` keyword indicates that the member has no implementation and **must be** overridden in a derived class.
   - Virtual: The `virtual` keyword indicates that the member has an implementation but can be overridden or extended in a derived class.
 
-#### abstract:
+#### `abstract` keyword:
 
 - The `abstract` keyword in parent classes: is used to define classes and class members _that are incomplete and must be implemented in derived classes_
 - **An abstract class can't be instantiated directly and is intended to be a base class for other classes**
@@ -109,17 +109,26 @@ Before you can override the members in a derived class, you must declare the mem
   - The derived class must provide implementations for the abstract members defined in the base class
   - Members that aren't abstract can be overridden or hidden in the derived class
 
-#### virtual:
+#### `virtual` keyword:
 
-- The `virtual` keyword in parent classes:
+- The `virtual` keyword in parent classes: allows you to override the parent in the child class
+- The `virtual` keyword in C# is used to define methods and properties that can be overridden in derived classes.
+- A virtual method or property has an implementation in the base class, but it can be extended or modified in derived classes.
+- Derived classes can override virtual members to provide their own implementations.
 
-- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. Not often used.
+The following rules describe how the `virtual` keyword affects inheritance:
+
+- Virtual methods: A virtual method has an implementation in the base class, but it can be overridden in derived classes.
+- Virtual properties: Similar to virtual methods, virtual properties have an implementation in the base class and can be overridden in derived classes.
+
+> **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class.
+
+#### `override` keyword:
+
 - The `override` keyword in child class method signatures:
   - `abstract` or `virtual` --> `override`
   - After you declare the members in the base class as either abstract or virtual, you can override the members in the derived class using the `override`
-- Base/parent class: `abstract`, `virtual`, and `sealed`
-  - The `sealed` keyword:
-- `public`, `protected`, `internal`, and `private` keywords
+  - The override keyword indicates that the member in the derived class overrides the member in the base class.
 - Method overriding (using `override`) and method hiding (using `new`)
 - The `base` keyword
   - `base(arg1, arg2)`:
@@ -131,6 +140,21 @@ To override a property or method in a derived class, you must follow these steps
   - `abstract` or `virtual` --> `override`
 - Override the members in the derived class.
 - Optionally, use the `base` keyword to access the base class implementation from the overridden member in the derived class.
+
+#### `virtual` keyword:
+
+-
+
+#### `new` keyword:
+
+- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. Not often used.
+- hiding base class members using `new` in child method signatures
+  - `public new void SameNameAsParentMethod()`
+  - Similar to method overriding - DON'T DO THAT - use `override`!
+
+#### `public`, `protected`, `internal`, and `private` keywords:
+
+-
 
 <span aria-hidden="true"><br></span>
 
