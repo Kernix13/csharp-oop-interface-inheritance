@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("InventorySystem: csharp-oop-interface-inheritance");
+﻿using InventorySystem;
+
+Console.WriteLine("InventorySystem: C# OOP interface, inheritance, & polymorphism.");
