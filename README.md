@@ -41,7 +41,6 @@ dotnet run
 ## Concepts and keywords to learn and add to this project
 
 - Class inheritance: base class and derived class
-  - Static constructors
   - the `override` keyword
 - Interfaces
   - the `interface` keyword
@@ -52,28 +51,16 @@ dotnet run
   - Base class references (`.base`, `base()`)
   - Inheritance-based polymorphism
   - Interface-based polymorphism
-  - Decouple
-    - Tight coupling
-    - Loose coupling
+  - Tight coupling & Loose coupling
   - Class dependencies?
   - Dependency injection?
   - Design patterns?
-- Public members
-- Private members
-- Protected members
-- The `abstract` keyword
-- The `virtual` keyword
-- The `sealed` keyword
-- The `new` keyword
-- The `override` keyword
-- The `base` keyword
+- Public, private, and protected members
+- The `abstract`, `virtual`, `sealed`, `override`, and `base` keywords
 - Instance property accessor?
-- Method overloading
-  - _Compile-time polymorphism_
-- Method overriding
-  - _Runtime polymorphism_
-- Casting
-  - The `is` and `as` keywords
+- Method overloading (_Compile-time polymorphism_)
+- Method overriding (_Runtime polymorphism_)
+- Casting: The `is` and `as` keywords
 
 <span aria-hidden="true"><br></span>
 
@@ -93,16 +80,43 @@ dotnet run
 - Static and instance constructors aren't inherited.
 - All other members of the base class are inherited
 - You can define new properties and methods in the derived class that don't exist in the base class.
+- Override the members of a base class by using the `virtual`, `override`, and `abstract` keywords.
+- Base and derived classes use the `abstract`, `virtual`, and `sealed` keywords to control the behavior of members that are inherited.
 - You can define properties and methods in the derived class that override properties and methods in the base class. In such cases, you can use the `override` keyword to extend or modify the behavior of the base class members.
 
 ### Inheritance: miscellaneous notes
 
-- Static constructors:
-- The `new` keyword in child class method signatures:
-- The `abstract` keyword in parent classes:
+Before you can override the members in a derived class, you must declare the members in the base class as either `abstract` or `virtual`.
+
+- _Virtual and abstract methods_: The `virtual` keyword is used to declare methods in the base class that can be overridden in derived classes. The `abstract` keyword is used for declaring methods that must be overridden in derived classes.
+  - Abstract: The `abstract` keyword indicates that the member has no implementation and **must be** overridden in a derived class.
+  - Virtual: The `virtual` keyword indicates that the member has an implementation but can be overridden or extended in a derived class.
+
+#### abstract:
+
+- The `abstract` keyword in parent classes: is used to define classes and class members _that are incomplete and must be implemented in derived classes_
+- **An abstract class can't be instantiated directly and is intended to be a base class for other classes**
+- Abstract methods and properties are declared without any implementation and _must be overridden_ in nonabstract derived classes.
+- Derived classes must provide implementations for **_ALL_** abstract members of the abstract class. Derived classes must override these methods and provide the implementation.
+- Abstract properties: Similar to abstract methods, abstract properties are declared without implementation and must be overridden in derived classes.
+
+#### Defining an abstract base class:
+
+- When you define a base class as abstract, you indicate that the class is incomplete and must be implemented by derived classes
+- Abstract classes can contain abstract properties and methods that must be implemented by derived classes
+- Abstract base classes can't be instantiated directly, so they're used as a template for derived classes to implement the abstract members
+  - You must create instances of the derived classes that implement the abstract members
+  - The derived class must provide implementations for the abstract members defined in the base class
+  - Members that aren't abstract can be overridden or hidden in the derived class
+
+#### virtual:
+
 - The `virtual` keyword in parent classes:
+
+- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. Not often used.
 - The `override` keyword in child class method signatures:
   - `abstract` or `virtual` --> `override`
+  - After you declare the members in the base class as either abstract or virtual, you can override the members in the derived class using the `override`
 - Base/parent class: `abstract`, `virtual`, and `sealed`
   - The `sealed` keyword:
 - `public`, `protected`, `internal`, and `private` keywords
@@ -110,6 +124,13 @@ dotnet run
 - The `base` keyword
   - `base(arg1, arg2)`:
   - `base.MethodName()`:
+
+To override a property or method in a derived class, you must follow these steps:
+
+- Declare the members in the base class as either `abstract` or `virtual`.
+  - `abstract` or `virtual` --> `override`
+- Override the members in the derived class.
+- Optionally, use the `base` keyword to access the base class implementation from the overridden member in the derived class.
 
 <span aria-hidden="true"><br></span>
 
@@ -175,7 +196,7 @@ dotnet run
 ### Polymorphism: additional terms:
 
 - Method overriding:
-- Virtual and abstract methods:
+- Virtual and abstract methods: SEE ABOVE
 - Base class references:
 - Decouple:
 - Tight coupling:
@@ -191,7 +212,7 @@ dotnet run
 - Public members:
 - Protected members:
 - Private members:
-- The `abstract` keyword:
+- The `abstract` keyword: SEE ABOVE
 - The `virtual` keyword:
 - The `sealed` keyword:
 - The `new` keyword:
@@ -215,6 +236,19 @@ dotnet run
 
 ## Code blocks
 
+Interfaces:
+
+```cs
+// Interface
+public interface IName {}
+
+// Implement an interface:
+public class ClassName : IName {}
+
+```
+
+Inheritance:
+
 ```cs
 class DerivedClass : BaseClass {}
 
@@ -223,17 +257,39 @@ public override string Method() {}
 
 // Note the type = BaseClass but instance of DerivedClass
 // THIS IS polymorphism:
-BaseClass someOtherClass = new DerivedClass();
+BaseClass VariableName = new DerivedClass();
 
 // The MemberName can be a property, method, or field of the base class
 base.MemberName
 
-// Interface
-public interface IName {}
+public abstract class BaseClass
+{
+    public abstract string Property1 { get; set; }
+    public virtual string Property2 { get; set; } = "Base - Property2";
 
-// Implement an interface:
-public class ClassName : IName {}
+    public abstract void Method1();
 
+    public void Method2()
+    {
+        Console.WriteLine("Base - Method2");
+    }
+}
+
+public class DerivedClass : BaseClass
+{
+    public override string Property1 { get; set; } = "Derived - Property1";
+    public new string Property2 { get; set; } = "Derived - Property2";
+
+    public override void Method1()
+    {
+        Console.WriteLine("Derived - Method1");
+    }
+
+    public new void Method2()
+    {
+        Console.WriteLine("Derived - Method2");
+    }
+}
 
 // inheritance - BASE
 public class HousePet {
@@ -263,6 +319,32 @@ public class DerivedClass : BaseClass
         InternalMethod();
     }
 }
+
+
+// ABSTRACT CLASS AND METHOD
+public abstract class Shape
+{
+    public abstract int GetArea();
+}
+
+public class Square : Shape
+{
+    private int _side;
+
+    public Square(int side)
+    {
+        _side = side;
+    }
+
+    public override int GetArea()
+    {
+        return _side * _side;
+    }
+}
+
+// in Program.js
+Square square = new Square(5);
+Console.WriteLine($"Area of the square = {square.GetArea()}");]
 ```
 
 ```sh
