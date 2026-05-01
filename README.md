@@ -4,9 +4,6 @@ This project is for learning advanced Object Oriented Programming concepts and s
 
 This README has notes on the concepts and keywords used is the `.cs` files.
 
-> [!NOTE]
-> Currently there is no code in this repo. I need to first organize all the concepts and syntax before I build a simple console application.
-
 <span aria-hidden="true"><br></span>
 
 ## Installation & Usage
