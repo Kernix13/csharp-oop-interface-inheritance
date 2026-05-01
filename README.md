@@ -43,23 +43,21 @@ dotnet run
 ## Concepts and keywords to learn and add to this project
 
 - Class inheritance: base class and derived class
-  - the `override` keyword
 - Interfaces
   - the `interface` keyword
   - interface implementation
 - Polymorphism
   - Method overriding
-  - `virtual` and `abstract` methods
-  - Base class references (`.base`, `base()`)
+  - `virtual` and `abstract` methods + the `override` keyword
+  - Base class references (`base.MemberName`, `base()`)
   - Inheritance-based polymorphism
   - Interface-based polymorphism
   - Tight coupling & Loose coupling
   - Class dependencies?
   - Dependency injection?
   - Design patterns?
-- Public, private, and protected members
+- Public, private, internal, and protected members
 - The `abstract`, `virtual`, `sealed`, `override`, and `base` keywords
-- Instance property accessor?
 - Method overloading (_Compile-time polymorphism_)
 - Method overriding (_Runtime polymorphism_)
 - Casting: The `is` and `as` keywords
@@ -68,11 +66,11 @@ dotnet run
 
 ## In-depth Ccncepts and keywords definitions
 
-### Inheritance: Base Class Notes
+### Inheritance: Base & Derived Class Notes
 
 - _Class inheritance_ allows a class to inherit members from a base class
 - A base class is used to define a common set of attributes and behaviors that other classes inherit
-- A class can inherit from only one base class.
+- **A class can inherit from only one base class**.
 
 ### Inheritance: Derived Class Notes
 
@@ -82,7 +80,7 @@ dotnet run
 - Static and instance constructors aren't inherited.
 - All other members of the base class are inherited
 - You can define new properties and methods in the derived class that don't exist in the base class.
-- Override the members of a base class by using the `virtual`, `override`, and `abstract` keywords.
+- Override the members of a base class by using the `virtual` or `abstract` in the base class and `override` in the derived/child class.
 - Base and derived classes use the `abstract`, `virtual`, and `sealed` keywords to control the behavior of members that are inherited.
 - You can define properties and methods in the derived class that override properties and methods in the base class. In such cases, you can use the `override` keyword to extend or modify the behavior of the base class members.
 
@@ -90,26 +88,27 @@ dotnet run
 
 Before you can override the members in a derived class, you must declare the members in the base class as either `abstract` or `virtual`.
 
-- _Virtual and abstract methods_: The `virtual` keyword is used to declare methods in the base class that can be overridden in derived classes. The `abstract` keyword is used for declaring methods that must be overridden in derived classes.
-  - Abstract: The `abstract` keyword indicates that the member has no implementation and **must be** overridden in a derived class.
-  - Virtual: The `virtual` keyword indicates that the member has an implementation but can be overridden or extended in a derived class.
+- _Virtual and abstract methods_:
+  - The `virtual` keyword is used to declare methods in the base class that can be overridden in derived classes - the member has an implementation but **can be** overridden or extended in a derived class.
+  - The `abstract` keyword is used for declaring methods that must be overridden in derived classes - the member has no implementation and **must be** overridden in a derived class.
 
 #### `abstract` keyword:
 
 - The `abstract` keyword in parent classes: is used to define classes and class members _that are incomplete and must be implemented in derived classes_
 - **An abstract class can't be instantiated directly and is intended to be a base class for other classes**
-- Abstract methods and properties are declared without any implementation and _must be overridden_ in nonabstract derived classes.
-- Derived classes must provide implementations for **_ALL_** abstract members of the abstract class. Derived classes must override these methods and provide the implementation.
-- Abstract properties: Similar to abstract methods, abstract properties are declared without implementation and must be overridden in derived classes.
+- Abstract methods and properties are declared without any implementation and **_MUST BE overridden_** in nonabstract derived classes.
+- Derived classes **_MUST_** provide implementations for **_ALL_** abstract members of the abstract class.
+- Derived classes **_MUST_** override these methods and provide the implementation.
+- Abstract properties: Similar to abstract methods, abstract properties are declared without implementation and **_MUST BE overridden_** in derived classes.
 
 Defining an `abstract` base class:
 
 - When you define a base class as abstract, you indicate that the class is incomplete and must be implemented by derived classes
-- Abstract classes can contain abstract properties and methods that must be implemented by derived classes
+- Abstract classes can contain abstract properties and/or methods that must be implemented by derived classes
 - Abstract base classes can't be instantiated directly, so they're used as a template for derived classes to implement the abstract members
   - You must create instances of the derived classes that implement the abstract members
   - The derived class must provide implementations for the abstract members defined in the base class
-  - Members that aren't abstract can be overridden or hidden in the derived class
+  - **_Members that aren't abstract can be overridden or hidden in the derived class_**
 
 #### `virtual` keyword:
 
@@ -117,6 +116,7 @@ Defining an `abstract` base class:
 - The `virtual` keyword in C# is used to define methods and properties that can be overridden in derived classes.
 - A virtual method or property has an implementation in the base class, but it can be extended or modified in derived classes.
 - Derived classes can override virtual members to provide their own implementations.
+- You do not need to add/implement a method in your child class for a parent method that is virtual
 
 The following rules describe how the `virtual` keyword affects inheritance:
 
@@ -261,6 +261,7 @@ When implementing casting, consider the following guidelines:
 - Using pattern matching with `is`: Combines type check and cast in one step.
 - Using the `is` keyword with explicit cast: Separates type check and cast into two steps, providing more control over the casting process.
 - Using the `as` keyword: Attempts cast and handles failure gracefully by returning null.
+- do upcasting not down casting?!?
 
 > Understanding these casting techniques is essential for working with polymorphism and inheritance in C#.
 
@@ -336,7 +337,7 @@ When implementing casting, consider the following guidelines:
 - Decoupling & class dependencies: Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code. Decoupling is especially important in large systems where changes in one part of the code should not affect other parts
   - Tight coupling (Inheritance-Based Polymorphism): Tight coupling occurs when classes or components in a system are highly dependent on each other. This means that changes in one class can directly affect other classes, making the system less flexible and harder to maintain. Tight coupling can lead to difficulties in testing, extending, and modifying the code.
   - Loose coupling (Interface-Based Polymorphism): refers to a design where classes or components have minimal dependencies on each other. This design principle enhances flexibility, maintainability, and testability by reducing the interdependencies between components.
-- Design patterns???
+- Design patterns?
 
 #### Method overloading versus method overriding:
 
