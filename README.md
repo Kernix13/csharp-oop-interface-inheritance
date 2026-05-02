@@ -65,7 +65,7 @@ dotnet run
 
 ### Interface notes
 
-> Interfaces cannot contain fields; they can only contain properties!
+> Interfaces cannot contain fields; they can only contain properties & methods!
 
 - _Interface implementation_ allows a class to implement members defined in an interface
 - A class can define its own behavior and implement the members defined in an interface.

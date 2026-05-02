@@ -1,5 +1,6 @@
 namespace InventorySystem;
 
+// Not currently being used
 public interface ISupplyVendor
 {
     string VendorID { get; set; }

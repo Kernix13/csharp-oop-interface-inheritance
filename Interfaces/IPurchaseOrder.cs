@@ -1,5 +1,6 @@
 namespace InventorySystem;
 
+// Not currently being used
 public interface IPurchaseOrder
 {
     string VendorID { get; }
