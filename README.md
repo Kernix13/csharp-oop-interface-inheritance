@@ -1,6 +1,6 @@
 # C# OOP Interface and Inheritance Project
 
-This project is for learning advanced Object Oriented Programming concepts and syntax involving interfaces, inheritance, and polymorphism.
+This project is for learning advanced Object Oriented Programming concepts and syntax involving interfaces, inheritance, and polymorphism. The project name is `InventorySystem`. I have inventory management experience so this works with classes and interfaces.
 
 This README has notes on the concepts and keywords used is the `.cs` files.
 
@@ -63,11 +63,93 @@ dotnet run
 
 ## In-depth Ccncepts and keywords definitions
 
-### Inheritance: Base & Derived Class Notes
+### Interface notes
+
+> Interfaces cannot contain fields; they can only contain properties!
+
+- _Interface implementation_ allows a class to implement members defined in an interface
+- A class can define its own behavior and implement the members defined in an interface.
+- A class can inherit from multiple interfaces
+- You should use interface implementation when a class can perform a specific set of actions?
+- Create smaller, more specific interfaces rather than one large interface
+- An interface doesn't hold any data itself
+- Interfaces define methods but they don't provide the implementation for the methods
+- An interface makes your related classes more consistent and easier to work with
+- A method that takes an interface _parameter_ can interact with any object that implements the interface, irrespective of its specific class
+- Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code
+- the `interface` keyword
+
+#### Implement interface properties
+
+- Start the process by designing an interface with properties.
+  - Use the `interface` keyword to create an interface
+- Then, you develop a class that implements these properties
+- Define properties in the interface without a body
+- When you implement these properties in a class, you'll write the actual code for getting (reading) and setting (writing) the values
+
+> The specific pattern: **Interface → Base Class → Derived Class** - that is a professional "Gold Standard" in C# development.
+
+1. Interface -> The Contract. Defines what must be done.
+2. Base Class -> The Blueprint. Defines how things are done by default (shared code).
+3. Derived Class -> The Specialist. Handles the unique details.
+
+Example interface from this project:
+
+```cs
+namespace InventorySystem;
+// Used in Product.cs
+public interface IInventoryItem
+{
+    // These are just my starter properties for now
+    public string ItemNumber { get; set; }
+    public int QuantityOnHand { get; set; }
+    public int QuantityOnOrder { get; }
+    public int QuantityOnBackOrder { get; set; }
+
+    string DisplayItemInfo();
+}
+```
+
+I have preliminary blocks at the end of the file for my interfaces `IPurchaseOrder` and `ISupplyVendor` (bad name).
+
+<span aria-hidden="true"><br></span>
+
+### Inheritance: Base Class Notes
 
 - _Class inheritance_ allows a class to inherit members from a base class
 - A base class is used to define a common set of attributes and behaviors that other classes inherit
 - **A class can inherit from only one base class**.
+
+Example base class from this project:
+
+```cs
+namespace InventorySystem;
+// I don't know if I should use the 'abstract' keyword or not
+// see IInventoryItem above
+public class Product : IInventoryItem
+{
+    // You must implement everything the interface asked for
+    public string ItemNumber { get; set; } = "ABC123";
+    public int QuantityOnHand { get; set; } = 97;
+    public int QuantityOnOrder { get; set; } = 250;
+    public int QuantityOnBackOrder { get; set; } = 0;
+
+    // Base Constructor
+    public Product(string itemNumber, int onHand, int onOrder, int onBackOrder)
+    {
+        ItemNumber = itemNumber;
+        QuantityOnHand = onHand;
+        QuantityOnOrder = onOrder;
+        QuantityOnBackOrder = onBackOrder;
+    }
+
+    // 'virtual' keyword - How often is 'abstract' used?
+    public virtual string DisplayItemInfo()
+    {
+        return $"Item Number: {ItemNumber}, Quantity On Hand: {QuantityOnHand}, Quantity On Order: {QuantityOnOrder}, Quantity On Back Order: {QuantityOnBackOrder}";
+    }
+}
+```
 
 ### Inheritance: Derived Class Notes
 
@@ -80,6 +162,27 @@ dotnet run
 - Override the members of a base class by using the `virtual` or `abstract` in the base class and `override` in the derived/child class.
 - Base and derived classes use the `abstract`, `virtual`, and `sealed` keywords to control the behavior of members that are inherited.
 - You can define properties and methods in the derived class that override properties and methods in the base class. In such cases, you can use the `override` keyword to extend or modify the behavior of the base class members.
+
+**NOTE**: If you want to pass the values in when you create the instance, you should put the main constructor in the Base Class to handle the shared fields
+
+Example derived class from this project:
+
+```cs
+namespace InventorySystem;
+
+public class DatedProduct : Product
+{
+    // Constructor using base()
+    public DatedProduct(string itemNumber, int onHand, int onOrder, int onBackOrder)
+        : base(itemNumber, onHand, onOrder, onBackOrder) { }
+
+    // 'override' for 'virtual' method in Product.cs
+    public override string DisplayItemInfo()
+    {
+        return $"Item Number: {ItemNumber}, Quantity On Hand: {QuantityOnHand}";
+    }
+}
+```
 
 ### Inheritance: miscellaneous notes
 
@@ -265,40 +368,6 @@ When implementing casting, consider the following guidelines:
 
 <span aria-hidden="true"><br></span>
 
-### Interface notes
-
-> Interfaces cannot contain fields; they can only contain properties!
-
-- _Interface implementation_ allows a class to implement members defined in an interface
-- A class can define its own behavior and implement the members defined in an interface.
-- A class can inherit from multiple interfaces
-- You should use interface implementation when a class can perform a specific set of actions?
-- Create smaller, more specific interfaces rather than one large interface
-- An interface doesn't hold any data itself
-- Interfaces define methods but they don't provide the implementation for the methods
-- An interface makes your related classes more consistent and easier to work with
-- A method that takes an interface _parameter_ can interact with any object that implements the interface, irrespective of its specific class
-- Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code
-- the `interface` keyword
-
-#### Implement interface properties
-
-- Start the process by designing an interface with properties.
-  - Use the `interface` keyword to create an interface
-- Then, you develop a class that implements these properties
-- Define properties in the interface without a body
-- When you implement these properties in a class, you'll write the actual code for getting (reading) and setting (writing) the values
-
-> The specific pattern: **Interface → Base Class → Derived Class** - that is a professional "Gold Standard" in C# development.
-
-1. Interface -> The Contract. Defines what must be done.
-2. Base Class -> The Blueprint. Defines how things are done by default (shared code).
-3. Derived Class -> The Specialist. Handles the unique details.
-
-NOTE: If you want to pass the values in when you create the instance, you should put the main constructor in the Base Class to handle the shared fields
-
-<span aria-hidden="true"><br></span>
-
 ### Polymorphism: miscellaneous notes
 
 <!-- - Polymorphism: a base class reference points to a derived class object? -->
@@ -314,7 +383,7 @@ NOTE: If you want to pass the values in when you create the instance, you should
 ### Inheritance-based polymorphism
 
 - Inheritance-based polymorphism is a common way to implement polymorphism in C#.
-- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_. (?)
+- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_. (? - see example below)
 - When an app instantiates an object as a base class type and then assigns the object to a derived class instance, it's prepared to implement _polymorphism_.
 - _Inheritance-based polymorphism_: Class inheritance in C# enables a derived class to inherit members from a base class. Members of the base class can be overridden in the derived class to provide specific implementations.
 - **Inheritance-Based Polymorphism**: Using this approach can lead to _tight coupling_ because derived classes are directly dependent on the base class.
@@ -324,6 +393,22 @@ NOTE: If you want to pass the values in when you create the instance, you should
 - _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_.
 - However, there are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
 - By using a base class reference, you can invoke overridden methods in derived classes, enabling polymorphic behavior
+
+Example from Program.cs
+
+```cs
+/*  Is this:
+    Inheritance-based polymorphism - or
+    Interfaced-based polymorphism */
+
+// IInventoryItem (interface) > Product (base) > DatedProduct (derived)
+IInventoryItem product1 = new DatedProduct("mnop", 150, 0, 0);
+Console.WriteLine(product1.DisplayItemInfo());
+
+// IInventoryItem (interface) > Product (base) > StandardProduct (derived)
+IInventoryItem product2 = new StandardProduct("xyz123", 10, 50, 17);
+Console.WriteLine(product2.DisplayItemInfo());
+```
 
 ### Interface-based polymorphism
 
@@ -336,7 +421,7 @@ NOTE: If you want to pass the values in when you create the instance, you should
 - Interface-based polymorphism is generally preferred over inheritance-based polymorphism because it promotes loose coupling
 - Interfaces are key in facilitating polymorphic behavior in applications. They allow objects to be treated as instances of their interface types
 
-### Polymorphism: additional terms:
+### Additional Polymorphism terms:
 
 - Virtual and abstract methods: SEE ABOVE
 - Base class references: Polymorphism allows a base class reference to point to objects of derived classes. This inheritance mechanism enables the invocation of overridden methods in derived classes through the base class reference.
@@ -366,9 +451,9 @@ Dependency injection ensures that dependencies are provided in a modular and tes
 
 <span aria-hidden="true"><br></span>
 
-## Other keywords + miscellaneous
+## Miscellaneous notes
 
-> Interject code blocks through out the page
+ <!-- Add code blocks through out the page -->
 
 - Use File-Scoped Namespaces (`namespace Name;`)
 - The Entry Point (`Program.cs`): Use Top-Level Statements (No namespace, no class, no Main) so `using NamespaceName`
@@ -397,8 +482,9 @@ Inheritance:
 ```cs
 class DerivedClass : BaseClass {}
 
-public virtual string Method() {}
-public override string Method() {}
+// virtual and override
+public virtual string MethodName() {}
+public override string MethodName() {}
 
 // Note the type = BaseClass but instance of DerivedClass
 // THIS IS polymorphism:
@@ -407,6 +493,7 @@ BaseClass VariableName = new DerivedClass();
 // The MemberName can be a property, method, or field of the base class
 base.MemberName
 
+// Why 'abstract' here?
 public abstract class BaseClass
 {
     public abstract string Property1 { get; set; }
@@ -472,6 +559,7 @@ public abstract class Shape
     public abstract int GetArea();
 }
 
+// Since the parent (Shape) isn't holding any data, the child (Square) must create its own field (_side) to do the work.
 public class Square : Shape
 {
     private int _side;
