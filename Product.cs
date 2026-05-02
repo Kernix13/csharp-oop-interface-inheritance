@@ -1,15 +1,12 @@
-
-// public class Product : IInventoryItem
-
 namespace InventorySystem;
 
 public class Product : IInventoryItem
 {
     // You must implement everything the interface asked for
-    public string ItemNumber { get; set; } = "ABC123";
-    public int QuantityOnHand { get; set; } = 97;
-    public int QuantityOnOrder { get; set; } = 250;
-    public int QuantityOnBackOrder { get; set; } = 0;
+    public string ItemNumber { get; set; }
+    public int QuantityOnHand { get; set; }
+    public int QuantityOnOrder { get; set; }
+    public int QuantityOnBackOrder { get; set; }
 
     // Base Constructor
     public Product(string itemNumber, int onHand, int onOrder, int onBackOrder)

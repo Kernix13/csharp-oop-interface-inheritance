@@ -6,11 +6,10 @@ namespace InventorySystem;
 public class DatedProduct : Product
 {
 
-    public DatedProduct(string itemNumber, int onHand, int onOrder, int onBackOrder)
-        : base(itemNumber, onHand, onOrder, onBackOrder) { }
+    public DatedProduct(string itemNumber, int onHand, int onOrder, int onBackOrder) : base(itemNumber, onHand, onOrder, onBackOrder) { }
 
     public override string DisplayItemInfo()
     {
-        return $"Item Number: {ItemNumber}, Quantity On Hand: {QuantityOnHand}";
+        return $"[Dated] Item Number: {ItemNumber}, Quantity On Hand: {QuantityOnHand}";
     }
 }
