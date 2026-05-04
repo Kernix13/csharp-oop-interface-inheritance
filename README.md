@@ -192,6 +192,8 @@ public class DatedProduct : Product
 
 ### Inheritance: miscellaneous notes
 
+> _THIS SECTION IS WAY TOO LONG, MOSTLY FROM BASE & CASTING_
+
 Before you can override the members in a derived class, you must declare the members in the base class as either `abstract` or `virtual`.
 
 #### `virtual` and `abstract` keywords:
