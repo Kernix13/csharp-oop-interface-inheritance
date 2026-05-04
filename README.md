@@ -70,14 +70,14 @@ dotnet run
 - _Interface implementation_ allows a class to implement members defined in an interface
 - A class can define its own behavior and implement the members defined in an interface.
 - A class can inherit from multiple interfaces
-- You should use interface implementation when a class can perform a specific set of actions?
+- You should use interface implementation when a class can perform a specific set of actions (?)
 - Create smaller, more specific interfaces rather than one large interface
 - An interface doesn't hold any data itself
 - Interfaces define methods but they don't provide the implementation for the methods
 - An interface makes your related classes more consistent and easier to work with
-- A method that takes an interface _parameter_ can interact with any object that implements the interface, irrespective of its specific class
+- A method that takes an interface _parameter_ can interact with any object that implements the interface, irrespective of its specific class (Advanced)
 - Interfaces help decouple class dependencies, making it easier to develop, test, and maintain the code
-- the `interface` keyword
+- You create an interface using the `interface` keyword
 
 #### Implement interface properties
 
@@ -91,7 +91,7 @@ dotnet run
 
 1. Interface -> The Contract. Defines what must be done.
 2. Base Class -> The Blueprint. Defines how things are done by default (shared code).
-3. Derived Class -> The Specialist. Handles the unique details.
+3. Derived Class -> Specifics. Handles the unique details.
 
 Example interface from this project:
 
@@ -110,7 +110,7 @@ public interface IInventoryItem
 }
 ```
 
-I have preliminary blocks at the end of the file for my interfaces `IPurchaseOrder` and `ISupplyVendor` (bad name).
+I have preliminary code blocks at the end of the file for my interfaces `IPurchaseOrder` and `ISupplyVendor` (bad name).
 
 <span aria-hidden="true"><br></span>
 
@@ -129,10 +129,10 @@ namespace InventorySystem;
 public class Product : IInventoryItem
 {
     // You must implement everything the interface asked for
-    public string ItemNumber { get; set; } = "ABC123";
-    public int QuantityOnHand { get; set; } = 97;
-    public int QuantityOnOrder { get; set; } = 250;
-    public int QuantityOnBackOrder { get; set; } = 0;
+    public string ItemNumber { get; set; }
+    public int QuantityOnHand { get; set; }
+    public int QuantityOnOrder { get; set; }
+    public int QuantityOnBackOrder { get; set; }
 
     // Base Constructor
     public Product(string itemNumber, int onHand, int onOrder, int onBackOrder)
@@ -151,16 +151,22 @@ public class Product : IInventoryItem
 }
 ```
 
+Product has:
+
+- a `public` class
+- a `public` constructor
+- a `public virtual` method
+
 ### Inheritance: Derived Class Notes
 
 - A derived class can reuse, extend, and modify the behavior defined in the base class.
 - A derived class is used to define a specialized set of attributes and behaviors
-- You should use class inheritance when a derived class is a specialized version of a base class.
+- Use class inheritance when a derived class is a specialized version of a base class (?)
 - Static and instance constructors aren't inherited.
 - All other members of the base class are inherited
 - You can define new properties and methods in the derived class that don't exist in the base class.
-- Override the members of a base class by using the `virtual` or `abstract` in the base class and `override` in the derived/child class.
-- Base and derived classes use the `abstract`, `virtual`, and `sealed` keywords to control the behavior of members that are inherited.
+- Override the members of a base class by using the `virtual` or `abstract` keywords in the base class, and `override` in the derived/child class.
+- Base and derived classes use the `abstract`, `virtual`, and `sealed` keywords to control the behavior of members that are inherited (?)
 - You can define properties and methods in the derived class that override properties and methods in the base class. In such cases, you can use the `override` keyword to extend or modify the behavior of the base class members.
 
 **NOTE**: If you want to pass the values in when you create the instance, you should put the main constructor in the Base Class to handle the shared fields
@@ -188,15 +194,16 @@ public class DatedProduct : Product
 
 Before you can override the members in a derived class, you must declare the members in the base class as either `abstract` or `virtual`.
 
-- _Virtual and abstract methods_:
-  - The `virtual` keyword is used to declare methods in the base class that can be overridden in derived classes - the member has an implementation but **can be** overridden or extended in a derived class.
-  - The `abstract` keyword is used for declaring methods that must be overridden in derived classes - the member has no implementation and **must be** overridden in a derived class.
+#### `virtual` and `abstract` keywords:
+
+- The `virtual` keyword is used to declare methods in the base class that can be overridden in the derived classes - the member has an implementation but **can be** overridden or extended in a derived class.
+- The `abstract` keyword is used for declaring methods that must be overridden in derived classes - the member has no implementation and **must be** overridden in a derived class.
 
 #### `abstract` keyword:
 
+- **An `abstract` <ins>class</ins> can't be instantiated directly and is intended to be a base class for other classes**
 - The `abstract` keyword in parent classes: is used to define classes and class members _that are incomplete and must be implemented in derived classes_
-- **An abstract class can't be instantiated directly and is intended to be a base class for other classes**
-- Abstract methods and properties are declared without any implementation and **_MUST BE overridden_** in nonabstract derived classes.
+- Abstract methods and properties are declared without any implementation and **_MUST BE overridden_** in ~~nonabstract~~ derived classes.
 - Derived classes **_MUST_** provide implementations for **_ALL_** abstract members of the abstract class.
 - Derived classes **_MUST_** override these methods and provide the implementation.
 - Abstract properties: Similar to abstract methods, abstract properties are declared without implementation and **_MUST BE overridden_** in derived classes.
@@ -215,31 +222,12 @@ Defining an `abstract` base class:
 - The `virtual` keyword in parent classes: allows you to override the parent in the child class
 - The `virtual` keyword in C# is used to define methods and properties that can be overridden in derived classes.
 - A virtual method or property has an implementation in the base class, but it can be extended or modified in derived classes.
-- Derived classes can override virtual members to provide their own implementations.
 - You do not need to add/implement a method in your child class for a parent method that is virtual
 
 The following rules describe how the `virtual` keyword affects inheritance:
 
 - Virtual methods: A virtual method has an implementation in the base class, but it can be overridden in derived classes.
 - Virtual properties: Similar to virtual methods, virtual properties have an implementation in the base class and can be overridden in derived classes.
-
-#### `sealed` keyword:
-
-The `sealed` keyword in C# is used to prevent a class or class member from being inherited or overridden. When a class is marked as `sealed`, it can't be used as a base class for other classes. When a method is marked as sealed, it can't be overridden in derived classes.
-
-The following rules describe how the `sealed` keyword affects inheritance:
-
-- Sealed classes: A sealed class can't be used as a base class for other classes. It prevents inheritance from the sealed class.
-- Sealed methods: A sealed method can't be overridden in derived classes. It prevents further modification of the method in derived classes.
-- Sealed properties: Similar to sealed methods, sealed properties can't be overridden in derived classes.
-
-Sealed classes and methods are useful when you want to prevent further extension or modification of a class or method. They provide a way to restrict inheritance and ensure that certain members remain unchanged.
-
-Avoid using sealed classes and methods: Sealed classes and methods can't be inherited or overridden, which limits the ability to use polymorphism. If you seal a class or method, you prevent further extension and customization. For example:
-
-```cs
-public sealed class BankAccount { } // This class can't be inherited
-```
 
 #### `override` keyword:
 
@@ -267,7 +255,7 @@ To override a property or method in a derived class, you must follow these steps
 A derived class that replaces or overrides a base class method or property can still access the method or property on the base class by using the `base` keyword. This enables you to call base class constructors, methods, and properties from overridden members of a derived class.
 
 - Use the `base` keyword to access base class members from a derived class.
-- Use the `base` keyword _to call_ base class constructors from derived class constructors.
+- Use the `base` keyword _to call_ base class constructors from derived class constructors (?)
 - Use the `base` keyword to access base class fields, properties, and methods from overridden methods in a derived class.
 
 By using the `base` keyword, you can ensure that the derived class properly reuses and extends the functionality provided by the base class.
@@ -282,7 +270,7 @@ The base keyword has the following restrictions:
 - The `base` keyword can only be used in a constructor, an instance method, or an instance property accessor.
 - The `base` keyword can't be used in a static method. Attempting to use the `base` keyword in a static method will generate an error.
 
-When you implement the `base` keyword in a derived class, your code uses the base class specified in the class declaration
+When you implement the `base` keyword in a derived class, your code uses the base class specified in the class declaration (???)
 
 Accessing the properties and methods of a base class from a derived class is a common requirement when implementing inheritance. The following code demonstrates the syntax for implementing the `base` keyword:
 
@@ -297,14 +285,6 @@ Class constructors in the base class can be accessed from constructors of the de
 Calling the base class constructor from the derived class constructor is important. For example, when the base class constructor initializes common properties that are used by the derived class. By calling the base class constructor from the derived class constructor, you ensure that the common properties are initialized before the derived class constructor executes.
 
 > **NOTE**: It's best practice for virtual members to use `base` to call the base class implementation of that member in their own implementation. Letting the base class behavior occur enables the derived class to concentrate on implementing behavior specific to the derived class. If the base class implementation isn't called, it's up to the derived class to make their behavior compatible with the behavior of the base class. (?)
-
-#### `new` keyword:
-
-- The `new` keyword in child class method signatures: used to hide base class members or to to avoid accidental overriding of base class members. (Not often used)
-- I think you would use it when you same members with the same name in both classes
-- Hiding base class members using `new` in child method signatures
-  - `public new void SameNameAsParentMethod()`
-  - Similar to method overriding - DON'T DO THAT - use `override`!
 
 #### `public`, `protected`, `internal`, and `private` keywords:
 
@@ -375,7 +355,7 @@ When implementing casting, consider the following guidelines:
 - Polymorphism is based on Method overriding, `virtual` and `abstract` methods, base class references, and interface-based polymorphism
 - Polymorphism decouples the code that uses objects from the code that defines the objects
 - Polymorphism enables objects of different types to be treated as objects of a common base type, providing flexibility and reusability in code.
-- _Polymorphism_: is primarily achieved through method overriding
+- **_Polymorphism_: is primarily achieved through method overriding**
 - The classes and data that you're working with will determine whether inheritance-based or interface-based polymorphism is more appropriate
 
 > While polymorphism can be implemented in both tightly and loosely coupled systems, using interfaces for polymorphism generally promotes loose coupling
@@ -383,15 +363,15 @@ When implementing casting, consider the following guidelines:
 ### Inheritance-based polymorphism
 
 - Inheritance-based polymorphism is a common way to implement polymorphism in C#.
-- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_. (? - see example below)
+- Inheritance enables polymorphism, _which allows you to treat objects of a derived class as objects of their base class_.
 - When an app instantiates an object as a base class type and then assigns the object to a derived class instance, it's prepared to implement _polymorphism_.
 - _Inheritance-based polymorphism_: Class inheritance in C# enables a derived class to inherit members from a base class. Members of the base class can be overridden in the derived class to provide specific implementations.
 - **Inheritance-Based Polymorphism**: Using this approach can lead to _tight coupling_ because derived classes are directly dependent on the base class.
   - Changes in the base class can affect all derived classes.
 - **Inheritance-based polymorphism** is appropriate in scenarios where you need to establish a clear hierarchical relationship between classes
 - When you need to treat objects of different classes uniformly, inheritance-based polymorphism is ideal
-- _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_.
-- However, there are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
+- _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_ (?)
+- There are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
 - By using a base class reference, you can invoke overridden methods in derived classes, enabling polymorphic behavior
 
 Example from Program.cs
@@ -448,6 +428,8 @@ By using Dependency Injection, the Library class can work with any implementatio
 - Maintainability: The Library class doesn’t need to know the details of the specific implementation, making it easier to extend and maintain.
 
 Dependency injection ensures that dependencies are provided in a modular and testable manner
+
+> I don't understand this concept AT ALL!
 
 <span aria-hidden="true"><br></span>
 
@@ -608,5 +590,35 @@ public interface ISupplyVendor
     string AvgLeadTime { get; set; }
 }
 ```
+
+<span aria-hidden="true"><br></span>
+
+## Less useful keywords in my opinion
+
+### `sealed` keyword:
+
+The `sealed` keyword in C# is used to prevent a class or class member from being inherited or overridden. When a class is marked as `sealed`, it can't be used as a base class for other classes. When a method is marked as sealed, it can't be overridden in derived classes.
+
+The following rules describe how the `sealed` keyword affects inheritance:
+
+- Sealed classes: A sealed class can't be used as a base class for other classes. It prevents inheritance from the sealed class.
+- Sealed methods: A sealed method can't be overridden in derived classes. It prevents further modification of the method in derived classes.
+- Sealed properties: Similar to sealed methods, sealed properties can't be overridden in derived classes.
+
+Sealed classes and methods are useful when you want to prevent further extension or modification of a class or method. They provide a way to restrict inheritance and ensure that certain members remain unchanged.
+
+Avoid using sealed classes and methods: Sealed classes and methods can't be inherited or overridden, which limits the ability to use polymorphism. If you seal a class or method, you prevent further extension and customization. For example:
+
+```cs
+public sealed class BankAccount { } // This class can't be inherited
+```
+
+### `new` keyword:
+
+- The `new` keyword in child class method signatures: used to hide base class members or to avoid accidental overriding of base class members. (Not often used)
+- I think you would use it when you members with the same name in both classes
+- Hiding base class members using `new` in child method signatures
+  - `public new void SameNameAsParentMethod()`
+  - Similar to method overriding - DON'T DO THAT - use `override`!
 
 <!-- The local repo folder name is: InventorySystem -->
