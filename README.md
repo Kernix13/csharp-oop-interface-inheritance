@@ -11,7 +11,7 @@ This README has notes on the concepts and keywords used is the `.cs` files.
 1. Clone this repository and switch into project folder
 
    ```sh
-   git clone https://github.com/Kernix13/csharp-oop-interface-inheritance InventorySystem
+   git clone https://github.com/Kernix13/csharp-oop-interface-inheritance.git InventorySystem
    cd InventorySystem
    ```
 
