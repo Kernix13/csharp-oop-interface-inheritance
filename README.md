@@ -262,6 +262,8 @@ A derived class that replaces or overrides a base class method or property can s
 
 By using the `base` keyword, you can ensure that the derived class properly reuses and extends the functionality provided by the base class.
 
+**Calling the base class constructor from the derived class constructor is important - you ensure that the common properties are initialized before the derived class constructor executes **
+
 The `base` keyword is used to accomplish the following tasks:
 
 - To call a base class method from an overridden method of the derived class.
@@ -354,6 +356,13 @@ When implementing casting, consider the following guidelines:
 
 <!-- - Polymorphism: a base class reference points to a derived class object? -->
 
+Principles of polymorphism
+
+1. Method overriding
+2. Virtual and abstract methods
+3. Base class references
+4. Interface-based polymorphism
+
 - Polymorphism is based on Method overriding, `virtual` and `abstract` methods, base class references, and interface-based polymorphism
 - Polymorphism decouples the code that uses objects from the code that defines the objects
 - Polymorphism enables objects of different types to be treated as objects of a common base type, providing flexibility and reusability in code.
@@ -373,7 +382,10 @@ When implementing casting, consider the following guidelines:
 - **Inheritance-based polymorphism** is appropriate in scenarios where you need to establish a clear hierarchical relationship between classes
 - When you need to treat objects of different classes uniformly, inheritance-based polymorphism is ideal
 - _When you create instances of the base class that reference the derived class types, you can access members of the derived class from the base class objects_ (?)
-- There are situations where inheritance-based polymorphism is the best approach, such as when you need to share common behavior across multiple classes.
+- There are situations where inheritance-based polymorphism is the best approach, such as when you need
+  - **to share common behavior across multiple classes**
+  - to extend the functionality of existing classes
+  - to treat objects of different classes uniformly
 - By using a base class reference, you can invoke overridden methods in derived classes, enabling polymorphic behavior
 
 Example from Program.cs
@@ -402,6 +414,13 @@ Console.WriteLine(product2.DisplayItemInfo());
 - Interface-based polymorphism is appropriate when you need to reduce code dependencies, facilitate code standardization, enhance flexibility, decouple class dependencies, implement multiple inheritance, promote polymorphic behavior, support dependency injection, and implement design patterns
 - Interface-based polymorphism is generally preferred over inheritance-based polymorphism because it promotes loose coupling
 - Interfaces are key in facilitating polymorphic behavior in applications. They allow objects to be treated as instances of their interface types
+
+interface-based polymorphism is beneficial:
+
+- to reduce dependencies between classes
+- to standardize the methods and properties that classes must implement
+- to create flexible systems where different classes can be used interchangeably
+- to decouple class dependencies, making it easier to develop, test, and maintain the code
 
 ### Additional Polymorphism terms:
 
