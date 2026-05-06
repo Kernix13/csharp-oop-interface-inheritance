@@ -86,6 +86,26 @@ Miscellaneous:
 // Calling the base class constructor from the derived class constructor
 public Derived(int num) : base(param1, param2)
 {
-  // you need param1 & param2 initialized sfor this code block
+  // you need param1 & param2 initialized for this code block
 }
+```
+
+## Takeaway from code in Implement polymorphism in a C# app
+
+```cs
+/*  interfaces -> use of:
+    1. 'public' for interface,
+    2. 'void' (or other) as method return type
+*/
+public interface InterfaceName {}
+
+/*  class -> use of:
+    1. 'public' for class, constructor, and methods,
+    2. 'void' (or other) as method return type
+*/
+public class ClassName : InterfaceName {}
+
+// In Program.cs
+InterfaceName varName = new ClassName("arg1", "arg2");
+varName.MethodName();
 ```
